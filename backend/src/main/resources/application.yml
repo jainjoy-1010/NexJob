@@ -10,10 +10,12 @@ spring:
 
 app:
   jwt:
-    secret: nexjob-super-secret-jwt-signing-key-for-production-environment-2026-secure!
+    secret: ${JWT_SECRET:nexjob-super-secret-jwt-signing-key-for-dev-environment-2026}
     expiration-ms: 86400000
   upload:
     dir: uploads
+  cors:
+    allowed-origins: ${FRONTEND_URL:http://localhost:5173}
 
 ---
 spring:

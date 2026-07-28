@@ -31,6 +31,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    @org.springframework.beans.factory.annotation.Value("${app.cors.allowed-origins}")
+    private List<String> allowedOrigins;
+
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
@@ -67,7 +70,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("*"));
+        configuration.setAllowedOriginPatterns(allowedOrigins);
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin"));
         configuration.setExposedHeaders(List.of("Content-Disposition"));
