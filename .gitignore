@@ -8,6 +8,8 @@ dist-ssr/
 .env
 .env.*
 !.env.example
+credentials
+secrets
 
 # Spring Boot
 backend/target/
@@ -16,6 +18,8 @@ uploads/
 *.jar
 *.war
 *.ear
+application-prod.properties
+application-prod.yml
 
 # IDEs
 .idea/
