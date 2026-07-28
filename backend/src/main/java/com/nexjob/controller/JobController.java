@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JobController {
 
-    private final JobService jobService;
+
 
     @GetMapping
     public ResponseEntity<List<JobResponse>> searchJobs(

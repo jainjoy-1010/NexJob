@@ -23,7 +23,9 @@ app:
   upload:
     dir: ${UPLOAD_DIR:uploads}
   cors:
-    allowed-origins: ${FRONTEND_URL}
+    # REQUIRED on Render: set FRONTEND_URL=https://your-app.vercel.app
+    # Supports comma-separated multiple origins: https://app.vercel.app,https://custom.domain.com
+    allowed-origins: ${FRONTEND_URL:http://localhost:5173}
 
 server:
   port: ${PORT:8080}
