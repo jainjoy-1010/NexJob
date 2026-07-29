@@ -26,8 +26,7 @@
 
 ## 🌐 Live Demo
 
-- **Frontend (Vercel):** https://nex-job-sandy.vercel.app/
-- **Backend API (Render):** https://nexjob-qov4.onrender.com
+- **Live Application:** https://nex-job-sandy.vercel.app/
 - **Github Repository:** https://github.com/jainjoy-1010/NexJob
 
 ---
@@ -197,24 +196,6 @@ NexJob utilizes a stateless JWT (JSON Web Token) authentication flow:
 
 ---
 
-## 🖼️ Screenshots
-
-*(Placeholders for future screenshots)*
-
-| Landing Page | Login & Registration |
-| --- | --- |
-| ![Landing Page](#) | ![Login](#) |
-
-| Candidate Dashboard | Recruiter Dashboard |
-| --- | --- |
-| ![Candidate Dashboard](#) | ![Recruiter Dashboard](#) |
-
-| Job Listing / Search | Application Page |
-| --- | --- |
-| ![Job Search](#) | ![Applications](#) |
-
----
-
 ## 💻 Local Setup
 
 ### Prerequisites
@@ -347,7 +328,6 @@ The project utilizes **GitHub Actions** for Continuous Integration and Continuou
 - No implementation of caching (e.g., Redis) for high-traffic endpoints.
 
 ---
-
 
 <div align="center">
   <b>Built with ❤️ by Jain Joy.</b>
