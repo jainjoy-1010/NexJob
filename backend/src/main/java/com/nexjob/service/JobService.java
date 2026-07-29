@@ -38,14 +38,36 @@ public class JobService {
     public List<JobResponse> searchJobs(String query, String location, WorkMode workMode,
                                         ExperienceLevel experienceLevel, SalaryType salaryType,
                                         BigDecimal minSalary, Long currentUserId) {
-        List<Job> jobs = jobRepository.searchJobs(
-                (query != null && !query.isBlank()) ? query.trim() : null,
-                (location != null && !location.isBlank()) ? location.trim() : null,
-                workMode,
-                experienceLevel,
-                salaryType,
-                minSalary
-        );
+        org.springframework.data.jpa.domain.Specification<Job> spec = (root, cq, cb) -> {
+            java.util.List<jakarta.persistence.criteria.Predicate> predicates = new java.util.ArrayList<>();
+            predicates.add(cb.isTrue(root.get("active")));
+
+            if (query != null && !query.isBlank()) {
+                String likePattern = "%" + query.trim().toLowerCase() + "%";
+                predicates.add(cb.or(
+                        cb.like(cb.lower(root.get("title")), likePattern),
+                        cb.like(cb.lower(root.get("company").get("name")), likePattern)
+                ));
+            }
+            if (location != null && !location.isBlank()) {
+                predicates.add(cb.like(cb.lower(root.get("location")), "%" + location.trim().toLowerCase() + "%"));
+            }
+            if (workMode != null) {
+                predicates.add(cb.equal(root.get("workMode"), workMode));
+            }
+            if (experienceLevel != null) {
+                predicates.add(cb.equal(root.get("experienceLevel"), experienceLevel));
+            }
+            if (salaryType != null) {
+                predicates.add(cb.equal(root.get("salaryType"), salaryType));
+            }
+            if (minSalary != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("salaryMax"), minSalary));
+            }
+            return cb.and(predicates.toArray(new jakarta.persistence.criteria.Predicate[0]));
+        };
+
+        List<Job> jobs = jobRepository.findAll(spec, org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, "createdAt"));
 
         return jobs.stream()
                 .map(job -> mapToJobResponse(job, currentUserId))
